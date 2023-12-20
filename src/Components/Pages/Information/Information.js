@@ -25,7 +25,7 @@ const Information = () => {
             Overview
           </Button>
         </div>
-        <div>
+        <div className='component'>
           {content === 'about' && <About />}
           {content === 'overview' && <OverView />}
         </div>

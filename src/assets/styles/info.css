@@ -15,3 +15,18 @@
   width: 100%;
   border-bottom: 2px solid #88cbef;
 }
+.component {
+  margin: 1rem 0;
+  line-height: 1.6rem;
+}
+
+/* In your CSS file or inline styles */
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconButtonContainer {
+  margin-left: auto; /* This will push the icon button to the right */
+}
