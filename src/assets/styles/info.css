@@ -2,6 +2,10 @@
   margin: 0 3rem;
 }
 
+h3 {
+  margin-left: 3rem;
+}
+
 .btn {
   text-decoration: none;
   position: relative;
@@ -20,7 +24,6 @@
   line-height: 1.6rem;
 }
 
-/* In your CSS file or inline styles */
 .cardContent {
   display: flex;
   justify-content: space-between;
@@ -28,5 +31,6 @@
 }
 
 .iconButtonContainer {
-  margin-left: auto; /* This will push the icon button to the right */
+  margin-left: auto;
 }
+

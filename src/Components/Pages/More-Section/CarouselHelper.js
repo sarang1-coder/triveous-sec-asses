@@ -4,6 +4,10 @@ import { Carousel } from 'react-responsive-carousel'
 import CarouselCard from './CarouselCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../../../utils/slice/dataSlice'
+import WestIcon from '@mui/icons-material/West'
+import EastIcon from '@mui/icons-material/East'
+import { Button } from '@mui/material'
+import { motion } from 'framer-motion'
 
 const itemsPerPage = 4
 
@@ -32,8 +36,6 @@ const CarouselHelper = () => {
   }, [dispatch])
 
   const data = useSelector((state) => state.data.data)
-  const loading = useSelector((state) => state.data.loading)
-  const error = useSelector((state) => state.data.error)
   let info = data?.indianNews?.TopNews?.articles
   console.log('data', info)
 
@@ -59,49 +61,86 @@ const CarouselHelper = () => {
   }
 
   return (
-    <div style={{ backgroundColor: 'blueviolet', position: 'relative' }}>
-      <Carousel
-        showArrows={false}
-        showStatus={false}
-        showIndicators={false}
-        emulateTouch={true}
-        selectedItem={currentPage}
-        renderArrowPrev={(onClickHandler, hasPrev, label) =>
-          hasPrev && (
-            <CustomArrow
-              direction="left"
-              onClick={onClickHandler}
-              disabled={!hasPrev}
-            />
-          )
-        }
-        renderArrowNext={(onClickHandler, hasNext, label) =>
-          hasNext && (
-            <CustomArrow
-              direction="right"
-              onClick={onClickHandler}
-              disabled={!hasNext}
-            />
-          )
-        }
+    <>
+      <div
+        className="heading"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          margin: ' 0 4rem',
+        }}
       >
-        {itemsInRows.map((row, index) => (
-          <div key={index}>
-            <div style={{ display: 'flex' }}>
-              {row.map((item) => (
-                <CarouselCard key={item.id} content={item} />
-              ))}
+        <h3>More on Us</h3>
+        <Button className="toggle-btn" variant="outlined">
+          GRID VIEW
+        </Button>
+      </div>
+      <motion.div
+        style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <Button
+            color="error"
+            onClick={handlePrev}
+            disabled={currentPage === 0}
+          >
+            PREV
+            <WestIcon />
+          </Button>
+        </motion.div>
+        <Carousel
+          showArrows={false}
+          showThumbs={false}
+          showStatus={false}
+          showIndicators={false}
+          emulateTouch={true}
+          selectedItem={currentPage}
+          renderArrowPrev={(onClickHandler, hasPrev, label) =>
+            hasPrev && (
+              <CustomArrow
+                direction="left"
+                onClick={onClickHandler}
+                disabled={!hasPrev}
+              />
+            )
+          }
+          renderArrowNext={(onClickHandler, hasNext, label) =>
+            hasNext && (
+              <CustomArrow
+                direction="right"
+                onClick={onClickHandler}
+                disabled={!hasNext}
+              />
+            )
+          }
+        >
+          {itemsInRows.map((row, index) => (
+            <div key={index}>
+              <div style={{ display: 'flex' }}>
+                {row.map((item) => (
+                  <CarouselCard key={item.id} content={item} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </Carousel>
-      <button onClick={handlePrev} disabled={currentPage === 0}>
-        Previous
-      </button>
-      <button onClick={handleNext} disabled={currentPage === totalPages - 1}>
-        Next
-      </button>
-    </div>
+          ))}
+        </Carousel>
+
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <Button
+            color="error"
+            onClick={handleNext}
+            disabled={currentPage === totalPages - 1}
+          >
+            NEXT
+            <EastIcon />
+          </Button>
+        </motion.div>
+      </motion.div>
+    </>
   )
 }
 
