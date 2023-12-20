@@ -1,43 +1,50 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import MenuIcon from '@mui/icons-material/Menu'
-import '../../assets/styles/navbar.css'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
+import '../../assets/styles/navbar.css';
 
 const Navbar = () => {
-  const [isNavExpanded, setIsNavExpanded] = useState(false)
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
 
   return (
     <nav className="navigation">
-      <Link href="/" className="brand-name">
-        THE OUTPOST
-      </Link>
-      <button
-        className="hamburger"
-        onClick={() => {
-          setIsNavExpanded(!isNavExpanded)
-        }}
-      >
-        <MenuIcon />
-      </button>
+      <div className="brand-and-menu">
+        <Link to="/" className="brand-name">
+          THE OUTPOST
+        </Link>
+        <button
+          className="hamburger"
+          onClick={() => {
+            setIsNavExpanded(!isNavExpanded);
+          }}
+        >
+          <MenuIcon />
+        </button>
+      </div>
+
       <div
         className={
           isNavExpanded ? 'navigation-menu expanded' : 'navigation-menu'
         }
       >
-        <ul>
+        <ul className="centered-links">
           <li>
-            <a href="/home">Home</a>
+            <Link to="/home">Home</Link>
           </li>
           <li>
-            <a href="/about">About</a>
+            <Link to="/about">About</Link>
           </li>
           <li>
-            <a href="/contact">Contact</a>
+            <Link to="/contact">Contact</Link>
+          </li>
+          <li>
+            <AccountCircleIcon />
           </li>
         </ul>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -1,0 +1,17 @@
+.switch-container {
+  margin: 0 3rem;
+}
+
+.btn {
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid #88cbef;
+}
