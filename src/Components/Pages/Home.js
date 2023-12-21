@@ -60,7 +60,9 @@ const Home = () => {
         </div>
       </div>
       <Information />
-      <CarouselHelper />
+      <div className="carousel">
+        <CarouselHelper />
+      </div>
     </>
   )
 }

@@ -45,7 +45,9 @@
   display: flex;
 }
 
-
+.carousel {
+  min-height: 50vh;
+}
 
 @media screen and (max-width: 768px) {
   .home-container {
