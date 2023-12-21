@@ -5,12 +5,12 @@ const options = {
   url: 'https://indian-news1.p.rapidapi.com/indianNews',
   params: {
     size: '20',
-    cat: 'TopNews',
+    cat: 'TopNews'
   },
   headers: {
-    'X-RapidAPI-Key': 'c9ef0c2187msh3e72985ab01cb5bp139987jsn9b1d0233af1f',
-    'X-RapidAPI-Host': 'indian-news1.p.rapidapi.com',
-  },
+    'X-RapidAPI-Key': '9f4071b712msh8d3753923e1a0dbp1e59f5jsnbfa52ef0c5fe',
+    'X-RapidAPI-Host': 'indian-news1.p.rapidapi.com'
+  }
 }
 
 export const fetchAllData = async () => {

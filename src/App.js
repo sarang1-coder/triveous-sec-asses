@@ -16,6 +16,8 @@ import SignUp from './Components/Authentication/Signup'
 import Layout from './Components/Layout'
 import store from './utils/store/store'
 
+
+
 function App() {
   return (
     <div>
