@@ -7,15 +7,16 @@ import {
 } from 'firebase/firestore'
 import { db } from '../firebase.js'
 
-export const addToFirestore = async (title, description, image) => {
+
+export const addToFirestore = async (title, description, urlToImage) => {
   try {
     await addDoc(collection(db, 'newsapp'), {
       title: title,
       description: description,
-      image: image,
+      image: urlToImage,
       created_at: Timestamp.now(),
     })
-    console.log('Info stored in Firestore:', { title, description, image })
+    console.log('Info stored in Firestore:', { title, description, urlToImage })
     return true
   } catch (error) {
     console.error('Error saving data to Firestore:', error)

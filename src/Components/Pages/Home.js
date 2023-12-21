@@ -9,7 +9,6 @@ import ShareIcon from '@mui/icons-material/Share'
 import Information from './Information/Information'
 import CarouselHelper from './More-Section/CarouselHelper'
 
-
 const Home = () => {
   return (
     <>
@@ -61,7 +60,7 @@ const Home = () => {
         </div>
       </div>
       <Information />
-      <CarouselHelper/>
+      <CarouselHelper />
     </>
   )
 }

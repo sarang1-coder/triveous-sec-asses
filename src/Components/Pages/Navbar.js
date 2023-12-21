@@ -1,11 +1,41 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MenuIcon from '@mui/icons-material/Menu';
-import '../../assets/styles/navbar.css';
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import MenuIcon from '@mui/icons-material/Menu'
+import '../../assets/styles/navbar.css'
+import { Button } from '@mui/material'
 
 const Navbar = () => {
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
+  const navigate = useNavigate()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const auth = getAuth()
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser)
+      } else {
+        setUser(null)
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
+  const handleSignOut = async () => {
+    const auth = getAuth()
+    try {
+      await signOut(auth)
+      navigate('/')
+    } catch (error) {
+      console.error('Error signing out:', error.message)
+    }
+  }
+  const [isNavExpanded, setIsNavExpanded] = useState(false)
 
   return (
     <nav className="navigation">
@@ -16,7 +46,7 @@ const Navbar = () => {
         <button
           className="hamburger"
           onClick={() => {
-            setIsNavExpanded(!isNavExpanded);
+            setIsNavExpanded(!isNavExpanded)
           }}
         >
           <MenuIcon />
@@ -41,10 +71,29 @@ const Navbar = () => {
           <li>
             <AccountCircleIcon />
           </li>
+          <li>
+            {user ? (
+              <span
+                color="inherit"
+                style={{ cursor: 'pointer' }}
+                onClick={handleSignOut}
+              >
+                Logout
+              </span>
+            ) : (
+              <span
+                color="inherit"
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/signin')}
+              >
+                Login
+              </span>
+            )}
+          </li>
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

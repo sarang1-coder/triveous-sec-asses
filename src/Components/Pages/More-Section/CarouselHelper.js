@@ -7,30 +7,12 @@ import { fetchData } from '../../../utils/slice/dataSlice';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { Button, CircularProgress } from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CustomPrevButton, CustomNextButton } from './CustomButton.js';
 import ListView from './ListView';
 import GridView from './GridView';
-import { Modal, Backdrop } from './Modal.js';
 
 const itemsPerPage = 4;
-
-const CustomArrow = ({ direction, onClick, disabled }) => (
-  <div
-    onClick={onClick}
-    disabled={disabled}
-    style={{
-      position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      [direction === 'left' ? 'left' : 'right']: 0,
-      cursor: 'pointer',
-      zIndex: 2,
-    }}
-  >
-    {direction === 'left' ? '<' : '>'}
-  </div>
-);
 
 const CarouselHelper = () => {
   const dispatch = useDispatch();
@@ -46,25 +28,10 @@ const CarouselHelper = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [isGridView, setIsGridView] = useState(false);
-  const [selectedTitle, setSelectedTitle] = useState(null); // Modified state to store the selected title
-  const [selectedItemInfo, setSelectedItemInfo] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTitle, setSelectedTitle] = useState(null);
 
-  const handleItemClick = (title) => { // Update to receive title instead of ID
-    setSelectedTitle(title); // Set the selected title
-    setIsModalOpen(true);
-    const selectedItemInfo = {
-      title: info.find(item => item.title === title)?.title,
-      description: info.find(item => item.title === title)?.description,
-      date: info.find(item => item.title === title)?.publishedAt,
-      image: info.find(item => item.title === title)?.urlToImage,
-    };
-    setSelectedItemInfo(selectedItemInfo);
-  };
-
-  const closeModal = () => {
-    setSelectedTitle(null);
-    setIsModalOpen(false);
+  const handleItemClick = (title) => {
+    setSelectedTitle(title);
   };
 
   const totalPages = Math.ceil(info?.length / itemsPerPage);
@@ -84,7 +51,7 @@ const CarouselHelper = () => {
   const itemsInRows = [];
   for (let i = 0; i < visibleItems.length; i += 4) {
     itemsInRows.push(visibleItems?.slice(i, i + 4));
-  }
+  };
 
   const toggleGridView = () => {
     setIsGridView((prev) => !prev);
@@ -150,20 +117,6 @@ const CarouselHelper = () => {
             onClick={handleNext}
             disabled={currentPage === totalPages - 1}
           />
-          <AnimatePresence>
-            {isModalOpen && selectedItemInfo && (
-              <>
-                <Modal
-                  title={selectedItemInfo.title}
-                  description={selectedItemInfo.description}
-                  date={selectedItemInfo.publishedAt}
-                  image={selectedItemInfo.urlToImage}
-                  onClose={closeModal}
-                />
-                <Backdrop onClick={closeModal} />
-              </>
-            )}
-          </AnimatePresence>
         </motion.div>
       )}
     </>
